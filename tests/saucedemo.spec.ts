@@ -64,6 +64,14 @@ test.describe('SauceDemo', () => {
 				'Epic sadface: Username and password do not match any user in this service',
 			);
 		});
+
+		test('locked user cannot log in', async ({ page }) => {
+			await attemptLogin(page, 'locked_out_user', 'secret_sauce');
+
+			await expect(page.locator(errorMessage)).toContainText(
+				'Epic sadface: Sorry, this user has been locked out.',
+			);
+		});
 	});
 
 	test.describe('cart', () => {
